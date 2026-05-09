@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Piezoelectric Street Lighting · Bukit Bintang KL</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8fafc;
+  --surface: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+  --accent: #059669;
+  --accent2: #2563eb;
+  --yellow: #d97706;
+  --orange: #ea580c;
+  --red: #dc2626;
+  --purple: #7c3aed;
+  --blue: #2563eb;
+  --green: #059669;
+  --muted: #64748b;
+  --text: #0f172a;
+  --text-dim: #475569;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(248,250,252,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg,#059669,#2563eb);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.brand-name { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--text); }
+.brand-sub { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; color: var(--muted); text-transform: uppercase; }
+.header-nav { display: flex; gap: 28px; }
+.header-nav a {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  color: var(--muted); text-decoration: none; text-transform: uppercase;
+  transition: color .2s;
+}
+.header-nav a:hover { color: var(--accent); }
+.day-toggle {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+  background: var(--card); border: 1px solid var(--border-light);
+  color: var(--text-dim); border-radius: 999px; padding: 6px 16px; cursor: pointer;
+  transition: all .2s;
+}
+.day-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── NAV BAR ── */
+.section-nav {
+  position: sticky; top: 65px; z-index: 90;
+  display: flex; gap: 0; overflow-x: auto;
+  background: rgba(248,250,252,0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.section-nav a {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  color: var(--muted); text-decoration: none; text-transform: uppercase;
+  padding: 14px 16px; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+}
+.section-nav a:hover, .section-nav a.active {
+  color: var(--accent); border-bottom-color: var(--accent);
+}
+
+/* ── LAYOUT ── */
+.page { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
+section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+
+/* ── SECTION HEADS ── */
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; }
+.sec-num { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--accent); }
+.sec-title { font-family: var(--mono); font-size: 22px; font-weight: 700; }
+.sec-sub { font-size: 13px; color: var(--text-dim); margin-top: 4px; }
+
+/* ── OVERVIEW ── */
+#overview {
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(5,150,105,.06) 0%, transparent 70%);
+  border-radius: 24px;
+  padding: 60px 40px;
+  border: 1px solid var(--border);
+  margin-top: 32px;
+}
+.overview-badge {
+  display: inline-block; font-family: var(--mono); font-size: 9px;
+  letter-spacing: .15em; color: var(--accent); text-transform: uppercase;
+  border: 1px solid rgba(5,150,105,.35); background: rgba(5,150,105,.08);
+  padding: 5px 14px; border-radius: 999px;
+}
+#overview h1 {
+  font-family: var(--mono); font-size: clamp(28px,5vw,52px);
+  font-weight: 700; margin: 20px auto 16px;
+  max-width: 800px; line-height: 1.15;
+}
+#overview h1 span { color: var(--accent); }
+#overview p { max-width: 620px; margin: 0 auto; color: var(--text-dim); font-size: 15px; line-height: 1.7; }
+.overview-stats { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 48px; }
+.stat-item { text-align: center; }
+.stat-val { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--accent); }
+.stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: .15em; color: var(--muted); text-transform: uppercase; margin-top: 6px; }
+
+/* ── SIMULATION 1 (single tile) ── */
+.sim1-card {
+  background: var(--card); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 24px;
+}
+.sim1-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+.pressure-bar-wrap { display: flex; align-items: center; gap: 10px; }
+.pressure-track { width: 160px; height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.pressure-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width .15s; }
+.sim1-canvas-wrap {
+  position: relative; width: 100%; overflow: hidden; border-radius: 14px;
+  border: 1px solid var(--border); aspect-ratio: 800/420;
+  background: linear-gradient(to bottom, #dbeafe, #e0f2fe);
+}
+.sim1-canvas-wrap > svg { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; }
+.sim1-person {
+  position: absolute; cursor: grab; user-select: none;
+  width: 7.5%; z-index: 10;
+  transition: left .08s;
+}
+.sim1-person svg { display: block; width: 100%; height: auto; }
+.sim1-person:active { cursor: grabbing; }
+.sim1-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
+.sim1-stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+.sim1-stat-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+.sim1-stat-val { font-family: var(--mono); font-weight: 700; font-size: 14px; }
+
+/* ── LIVE SIM (4 zones) ── */
+.zone-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 20px; margin-bottom: 24px; }
+.zone-card {
+  background: var(--card); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 20px;
+}
+.zone-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.zone-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+.zone-name { font-weight: 700; font-size: 15px; margin-top: 3px; }
+.zone-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge {
+  font-family: var(--mono); font-size: 10px; padding: 3px 8px;
+  border-radius: 99px; border: 1px solid;
+}
+.badge-ped { border-color: var(--border-light); color: var(--text-dim); }
+.badge-volt { border-color: rgba(5,150,105,.4); color: var(--accent); background: rgba(5,150,105,.08); }
+.badge-lux { border-color: rgba(245,197,24,.3); color: var(--yellow); background: rgba(245,197,24,.06); }
+.zone-canvas {
+  position: relative; height: 180px; overflow: hidden; border-radius: 12px;
+  background: linear-gradient(to bottom, #bfdbfe, #dbeafe);
+  border: 1px solid var(--border);
+}
+.zone-road {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 56px;
+  background: #94a3b8;
+}
+.zone-road-line {
+  position: absolute; bottom: 56px; left: 0; right: 0; height: 1px;
+  background: rgba(202,138,4,.9);
+}
+.zone-tile {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  width: 30%; height: 12px; border-radius: 4px;
+  background: var(--accent); transition: box-shadow .3s;
+}
+.zone-tile.active { box-shadow: 0 0 20px rgba(5,150,105,.7); }
+.zone-tile-label {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 8px; letter-spacing: .1em;
+  color: rgba(255,255,255,.5); white-space: nowrap;
+}
+.zone-lamp {
+  position: absolute; bottom: 56px; display: flex; flex-direction: column; align-items: center;
+}
+.lamp-head {
+  width: 18px; height: 18px; border-radius: 50%;
+  transition: all .3s;
+}
+.lamp-post { width: 3px; height: 60px; background: #64748b; }
+.zone-walker {
+  position: absolute; bottom: 22px; cursor: grab; user-select: none;
+  font-size: 22px; transform: translateX(-50%); transition: left .05s linear;
+}
+.zone-walker:active { cursor: grabbing; }
+.zone-weather { position: absolute; right: 10px; top: 8px; font-size: 20px; }
+.zone-controls {
+  background: var(--card); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 24px;
+}
+.controls-title { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-bottom: 20px; }
+.controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 16px; }
+.ctrl-zone-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px;
+}
+.ctrl-zone-name { font-weight: 600; font-size: 13px; margin-bottom: 12px; }
+.ctrl-weather-btns { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+.ctrl-btn {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .06em;
+  padding: 4px 10px; border-radius: 99px; border: 1px solid var(--border);
+  cursor: pointer; background: transparent; color: var(--text-dim); transition: all .15s;
+}
+.ctrl-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.ctrl-slider-row { display: flex; align-items: center; gap: 10px; }
+.ctrl-slider-label { font-family: var(--mono); font-size: 9px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; flex-shrink: 0; }
+.ctrl-slider { flex: 1; accent-color: var(--accent); }
+.ctrl-slider-val { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); width: 20px; text-align: right; }
+
+/* ── HUB ── */
+.hub-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 32px; }
+.hub-metric {
+  border-radius: 16px; padding: 20px 24px;
+}
+.hub-metric-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+.hub-metric-val { font-family: var(--mono); font-size: 36px; font-weight: 700; margin-top: 8px; }
+.hub-metric-bar { height: 6px; border-radius: 99px; margin-top: 12px; overflow: hidden; background: rgba(0,0,0,.3); }
+.hub-metric-fill { height: 100%; border-radius: 99px; transition: width .5s; }
+.hub-visual {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+  background: var(--card); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 28px;
+}
+.hub-regions-left, .hub-regions-right { display: flex; flex-direction: column; gap: 14px; }
+.hub-region {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px; text-align: center;
+}
+.hub-region-code { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+.hub-region-name { font-weight: 600; font-size: 12px; margin-top: 4px; }
+.hub-region-lux { font-size: 12px; margin-top: 8px; color: var(--text-dim); }
+.hub-region-bar { height: 4px; border-radius: 99px; background: var(--border); margin-top: 6px; overflow: hidden; }
+.hub-region-fill { height: 100%; border-radius: 99px; background: var(--yellow); transition: width .5s; }
+.hub-center {
+  display: flex; align-items: center; justify-content: center;
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(5,150,105,.15), rgba(5,150,105,.03));
+  border: 2px solid rgba(5,150,105,.4);
+  flex-direction: column; text-align: center; flex-shrink: 0;
+}
+.hub-center-icon { font-size: 32px; }
+.hub-center-label { font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--muted); margin-top: 4px; }
+.hub-center-val { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--accent); margin-top: 2px; }
+
+/* ── BREADBOARD ── */
+.breadboard-wrap {
+  overflow-x: auto; border-radius: 20px; padding: 28px;
+  background: #1e293b; border: 1px solid #334155;
+}
+.breadboard-wrap svg { display: block; min-width: 900px; width: 100%; }
+
+/* ── CIRCUIT ── */
+.comp-legend {
+  display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 28px;
+}
+.comp-item { display: flex; align-items: center; gap: 10px; }
+.comp-symbol {
+  font-family: var(--mono); font-size: 16px; font-weight: 700;
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.comp-name { font-weight: 600; font-size: 13px; }
+.comp-desc { font-size: 11px; color: var(--text-dim); }
+.diagram-wrap {
+  overflow-x: auto; border-radius: 20px; padding: 4px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.diagram-wrap svg { display: block; min-width: 900px; width: 100%; }
+
+/* ── TABLES ── */
+.table-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px,1fr)); gap: 20px; }
+.table-section-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 10px;
+}
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; }
+thead { background: var(--surface); }
+th {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .08em;
+  color: var(--muted); text-transform: uppercase; text-align: left;
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+}
+td {
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+}
+tr:last-child td { border-bottom: none; }
+.hole {
+  background: rgba(59,158,255,.12); border: 1px solid rgba(59,158,255,.3);
+  color: var(--blue); padding: 1px 6px; border-radius: 4px; font-size: 11px;
+}
+.pill {
+  display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 11px;
+}
+.pill-accent { background: rgba(5,150,105,.1); border: 1px solid rgba(5,150,105,.35); color: var(--accent); }
+.pill-red { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: #f87171; }
+.pill-green { background: rgba(16,217,160,.12); border: 1px solid rgba(16,217,160,.3); color: var(--accent); }
+.pill-blue { background: rgba(96,165,250,.12); border: 1px solid rgba(96,165,250,.3); color: var(--blue); }
+.pill-black { background: rgba(100,116,139,.12); border: 1px solid rgba(100,116,139,.3); color: var(--muted); }
+.pill-yellow { background: rgba(245,197,24,.12); border: 1px solid rgba(245,197,24,.3); color: var(--yellow); }
+.pill-purple { background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.3); color: var(--purple); }
+
+/* ── FLOW ── */
+.flow-chain {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  background: var(--card); border: 1px solid var(--border-light);
+  border-radius: 16px; padding: 24px; overflow-x: auto;
+}
+.flow-node {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 16px; min-width: 100px; text-align: center;
+}
+.flow-node.highlight { border-color: var(--accent); background: rgba(5,150,105,.06); }
+.fn-label { font-family: var(--mono); font-size: 8px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+.fn-val { font-family: var(--mono); font-size: 12px; font-weight: 700; margin-top: 4px; }
+.flow-arrow { font-size: 18px; color: var(--muted); flex-shrink: 0; }
+
+/* ── NOTE ── */
+.note {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(59,158,255,.06); border: 1px solid rgba(59,158,255,.2);
+  border-radius: 12px; padding: 16px; font-size: 13px; color: var(--text-dim);
+  margin-top: 20px;
+}
+.note.warn { background: rgba(245,197,24,.06); border-color: rgba(245,197,24,.2); }
+.note-icon { flex-shrink: 0; font-size: 16px; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 3px; }
+
+@media (max-width: 768px) {
+  .header-nav, .day-toggle { display: none; }
+  .hub-metrics { grid-template-columns: 1fr; }
+  .hub-visual { grid-template-columns: 1fr; }
+  .hub-regions-left, .hub-regions-right { flex-direction: row; flex-wrap: wrap; }
+  .table-grid { grid-template-columns: 1fr; }
+  .sim1-stats { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header class="site-header">
+  <div class="header-brand">
+    <div class="brand-icon">⚡</div>
+    <div>
+      <div class="brand-name">Piezo Smart Lighting</div>
+      <div class="brand-sub">Bukit Bintang · KL Interactive Demo</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#overview">Overview</a>
+    <a href="#simulation1">Simulation</a>
+    <a href="#simulation2">Live Zones</a>
+    <a href="#hub">Hub</a>
+    <a href="#breadboard">Route Map</a>
+    <a href="#circuit">Circuit</a>
+    <a href="#piezo">Piezo</a>
+    <a href="#leds">LEDs</a>
+    <a href="#arduino">Arduino</a>
+    <a href="#flow">Signal Flow</a>
+  </nav>
+  <button class="day-toggle" id="dayToggle">☀️ Day · click to toggle</button>
+</header>
+
+<!-- ═══════════════════ SECTION NAV ═══════════════════ -->
+<nav class="section-nav" id="sectionNav">
+  <a href="#overview" class="active">Overview</a>
+  <a href="#simulation1">Simulation</a>
+  <a href="#simulation2">Live Zones</a>
+  <a href="#hub">Energy Hub</a>
+  <a href="#breadboard">Route Map</a>
+  <a href="#circuit">Circuit Diagram</a>
+  <a href="#piezo">Piezo Sensors</a>
+  <a href="#leds">RGB LEDs</a>
+  <a href="#arduino">Arduino Pins</a>
+  <a href="#flow">Signal Flow</a>
+  <a href="#notes">Notes</a>
+</nav>
+
+<div class="page">
+
+<!-- ═══════════════════ OVERVIEW ═══════════════════ -->
+<section id="overview">
+  <div class="overview-badge">Interactive Prototype · v3.0 · Bukit Bintang, KL</div>
+  <h1>Smart Piezoelectric <span>Street Lighting</span></h1>
+  <p>Four high-footfall zones in Bukit Bintang each host a piezoelectric tile array that harvests energy from pedestrian footsteps. A central hub aggregates voltage and distributes smart lighting across all zones — adapting brightness to real-time traffic, weather, and time of day.</p>
+  <div class="overview-stats">
+    <div class="stat-item">
+      <div class="stat-val" id="ovTotalV">0.0 V</div>
+      <div class="stat-label">Total Voltage</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val" id="ovHubCharge">0%</div>
+      <div class="stat-label">Hub Charge</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">4</div>
+      <div class="stat-label">Zones</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">4</div>
+      <div class="stat-label">Piezo Tiles</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SIMULATION 1 ═══════════════════ -->
+<section id="simulation1">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <div>
+      <h2 class="sec-title">Powering Street Lights — Interactive Simulation</h2>
+      <p class="sec-sub">Drag the pedestrian onto the green piezo tile to generate electricity</p>
+    </div>
+  </div>
+  <div class="sim1-card">
+    <div class="sim1-header">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;">Interactive Demo</div>
+        <div style="font-family:var(--mono);font-size:16px;font-weight:700;margin-top:4px;">Piezoelectric Tile → Street Light Simulation</div>
+      </div>
+      <div class="pressure-bar-wrap">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);">PRESSURE</div>
+        <div class="pressure-track"><div class="pressure-fill" id="s1PressureFill" style="width:0%"></div></div>
+        <div style="font-family:var(--mono);font-size:11px;font-weight:700;width:36px;" id="s1PressureVal">0%</div>
+      </div>
+    </div>
+
+    <div class="sim1-canvas-wrap" id="sim1Canvas">
+      <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="s1glow">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+            <stop offset="60%" stop-color="#fde047" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="s1tileGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#059669"/>
+            <stop offset="100%" stop-color="#047857"/>
+          </linearGradient>
+        </defs>
+        <!-- road -->
+        <rect x="0" y="380" width="800" height="40" fill="#94a3b8"/>
+        <rect x="0" y="370" width="800" height="12" fill="#cbd5e1"/>
+        <line x1="0" y1="375" x2="60" y2="375" stroke="#64748b" stroke-width="1"/>
+        <line x1="100" y1="375" x2="160" y2="375" stroke="#64748b" stroke-width="1"/>
+        <line x1="200" y1="375" x2="260" y2="375" stroke="#64748b" stroke-width="1"/>
+        <line x1="600" y1="375" x2="660" y2="375" stroke="#64748b" stroke-width="1"/>
+        <line x1="700" y1="375" x2="760" y2="375" stroke="#64748b" stroke-width="1"/>
+        <!-- lamp 1 -->
+        <g id="s1lamp1">
+          <circle cx="80" cy="130" r="70" fill="url(#s1glow)" id="s1glow1" opacity="0"/>
+          <rect x="77" y="130" width="6" height="245" fill="#64748b" rx="2"/>
+          <rect x="50" y="373" width="60" height="6" fill="#94a3b8" rx="1"/>
+          <line x1="80" y1="140" x2="80" y2="120" stroke="#64748b" stroke-width="6"/>
+          <ellipse cx="80" cy="120" rx="18" ry="10" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="80" cy="123" r="6" fill="#94a3b8" id="s1bulb1"/>
+        </g>
+        <!-- lamp 2 -->
+        <g id="s1lamp2">
+          <circle cx="220" cy="130" r="70" fill="url(#s1glow)" id="s1glow2" opacity="0"/>
+          <rect x="217" y="130" width="6" height="245" fill="#64748b" rx="2"/>
+          <rect x="190" y="373" width="60" height="6" fill="#94a3b8" rx="1"/>
+          <line x1="220" y1="140" x2="220" y2="120" stroke="#64748b" stroke-width="6"/>
+          <ellipse cx="220" cy="120" rx="18" ry="10" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="220" cy="123" r="6" fill="#94a3b8" id="s1bulb2"/>
+        </g>
+        <!-- lamp 3 -->
+        <g id="s1lamp3">
+          <circle cx="580" cy="130" r="70" fill="url(#s1glow)" id="s1glow3" opacity="0"/>
+          <rect x="577" y="130" width="6" height="245" fill="#64748b" rx="2"/>
+          <rect x="550" y="373" width="60" height="6" fill="#94a3b8" rx="1"/>
+          <line x1="580" y1="140" x2="580" y2="120" stroke="#64748b" stroke-width="6"/>
+          <ellipse cx="580" cy="120" rx="18" ry="10" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="580" cy="123" r="6" fill="#94a3b8" id="s1bulb3"/>
+        </g>
+        <!-- lamp 4 -->
+        <g id="s1lamp4">
+          <circle cx="720" cy="130" r="70" fill="url(#s1glow)" id="s1glow4" opacity="0"/>
+          <rect x="717" y="130" width="6" height="245" fill="#64748b" rx="2"/>
+          <rect x="690" y="373" width="60" height="6" fill="#94a3b8" rx="1"/>
+          <line x1="720" y1="140" x2="720" y2="120" stroke="#64748b" stroke-width="6"/>
+          <ellipse cx="720" cy="120" rx="18" ry="10" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="720" cy="123" r="6" fill="#94a3b8" id="s1bulb4"/>
+        </g>
+        <!-- wires -->
+        <line x1="400" y1="325" x2="80" y2="130" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" id="s1wire1"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="0.6s" repeatCount="indefinite"/></line>
+        <line x1="400" y1="325" x2="220" y2="130" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" id="s1wire2"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="0.6s" repeatCount="indefinite"/></line>
+        <line x1="400" y1="325" x2="580" y2="130" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" id="s1wire3"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="0.6s" repeatCount="indefinite"/></line>
+        <line x1="400" y1="325" x2="720" y2="130" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6" id="s1wire4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="0.6s" repeatCount="indefinite"/></line>
+        <!-- piezo tile -->
+        <rect x="280" y="324" width="240" height="56" rx="6" fill="url(#s1tileGrad)" stroke="#059669" stroke-width="2" id="s1Tile"/>
+        <line x1="328" y1="328" x2="328" y2="372" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="376" y1="328" x2="376" y2="372" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="424" y1="328" x2="424" y2="372" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <line x1="472" y1="328" x2="472" y2="372" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+        <text x="400" y="355" text-anchor="middle" font-family="monospace" font-size="10" fill="white" font-weight="700" letter-spacing="2">PIEZO TILE</text>
+        <!-- lightning bolts -->
+        <g id="s1bolts" opacity="0">
+          <path d="M396 310l8-14-3 0 5-10-8 14 3 0z" fill="#f5c518"/>
+          <path d="M340 314l6-10-2 0 3-7-6 10 2 0z" fill="#f5c518"/>
+          <path d="M460 314l6-10-2 0 3-7-6 10 2 0z" fill="#f5c518"/>
+        </g>
+      </svg>
+      <!-- draggable person -->
+      <div class="sim1-person" id="sim1Person" style="left:10%;top:64%;">
+        <svg viewBox="0 0 60 110">
+          <circle cx="30" cy="14" r="12" fill="#fcd5b5" stroke="#1e293b" stroke-width="1.5"/>
+          <path d="M18 10 Q30 -2 42 10 L42 16 Q30 8 18 16 Z" fill="#3b82f6"/>
+          <circle cx="26" cy="14" r="1.2" fill="#1e293b"/>
+          <circle cx="34" cy="14" r="1.2" fill="#1e293b"/>
+          <path d="M26 18 Q30 21 34 18" stroke="#1e293b" stroke-width="1" fill="none"/>
+          <rect x="20" y="26" width="20" height="36" rx="4" fill="#3b82f6"/>
+          <rect x="12" y="28" width="8" height="28" rx="3" fill="#3b82f6"/>
+          <rect x="40" y="28" width="8" height="28" rx="3" fill="#3b82f6"/>
+          <rect x="20" y="62" width="8" height="36" rx="2" fill="#1e3a8a"/>
+          <rect x="32" y="62" width="8" height="36" rx="2" fill="#1e3a8a"/>
+          <ellipse cx="24" cy="100" rx="6" ry="3" fill="#1e293b"/>
+          <ellipse cx="36" cy="100" rx="6" ry="3" fill="#1e293b"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="sim1-stats">
+      <div class="sim1-stat">
+        <div class="sim1-stat-label">Status</div>
+        <div class="sim1-stat-val" id="s1Status" style="color:var(--muted);">● IDLE</div>
+      </div>
+      <div class="sim1-stat">
+        <div class="sim1-stat-label">Output Voltage</div>
+        <div class="sim1-stat-val" id="s1Voltage">0.00 V</div>
+      </div>
+      <div class="sim1-stat">
+        <div class="sim1-stat-label">Lamps</div>
+        <div class="sim1-stat-val" id="s1Lamps" style="color:var(--muted);">OFF</div>
+      </div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-dim);">💡 <strong>Drag the character</strong> onto the green piezo tile. Pressure converts mechanical energy into electricity, powering the nearby street lamps.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════ LIVE SIMULATION (4 ZONES) ═══════════════════ -->
+<section id="simulation2">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <div>
+      <h2 class="sec-title">Live Simulation — 4 Bukit Bintang Zones</h2>
+      <p class="sec-sub">Pedestrians auto-walk; drag them onto the piezo tile to boost energy generation</p>
+    </div>
+  </div>
+
+  <div class="zone-grid" id="zoneGrid">
+    <!-- Zone cards injected by JS -->
+  </div>
+
+  <!-- Controls -->
+  <div class="zone-controls">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+      <div class="controls-title">Zone Controls</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-family:var(--mono);font-size:10px;color:var(--muted);">Mode</span>
+        <button class="ctrl-btn active" id="globalDay" onclick="setGlobalMode('day')">☀️ Day</button>
+        <button class="ctrl-btn" id="globalNight" onclick="setGlobalMode('night')">🌙 Night</button>
+      </div>
+    </div>
+    <div class="controls-grid" id="controlsGrid">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CENTRAL ENERGY HUB ═══════════════════ -->
+<section id="hub">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <div>
+      <h2 class="sec-title">Central Energy Hub</h2>
+      <p class="sec-sub">Aggregates harvested voltage and distributes by demand across all zones</p>
+    </div>
+  </div>
+
+  <div class="hub-metrics">
+    <div class="hub-metric" style="background:rgba(16,217,160,.08);border:1px solid rgba(16,217,160,.2);">
+      <div class="hub-metric-label" style="color:var(--accent);">Total Harvested</div>
+      <div class="hub-metric-val" style="color:var(--accent);" id="hubTotal">0.0 V</div>
+    </div>
+    <div class="hub-metric" style="background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.2);">
+      <div class="hub-metric-label" style="color:var(--yellow);">Hub Charge</div>
+      <div class="hub-metric-val" style="color:var(--yellow);" id="hubCharge">0%</div>
+      <div class="hub-metric-bar"><div class="hub-metric-fill" id="hubChargeFill" style="background:var(--yellow);width:0%"></div></div>
+    </div>
+    <div class="hub-metric" style="background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);">
+      <div class="hub-metric-label" style="color:var(--blue);">Total Demand</div>
+      <div class="hub-metric-val" style="color:var(--blue);" id="hubDemand">0%</div>
+    </div>
+  </div>
+
+  <div class="hub-visual">
+    <div class="hub-regions-left">
+      <div class="hub-region" id="hubRegion0">
+        <div class="hub-region-code">Zone A</div>
+        <div class="hub-region-name">Pavilion KL Crossing</div>
+        <div class="hub-region-lux" id="hubLux0">💡 0%</div>
+        <div class="hub-region-bar"><div class="hub-region-fill" id="hubBar0" style="width:0%"></div></div>
+      </div>
+      <div class="hub-region" id="hubRegion1">
+        <div class="hub-region-code">Zone B</div>
+        <div class="hub-region-name">Lot 10 / MRT Entrance</div>
+        <div class="hub-region-lux" id="hubLux1">💡 0%</div>
+        <div class="hub-region-bar"><div class="hub-region-fill" id="hubBar1" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="hub-center">
+      <div class="hub-center-icon">⚡</div>
+      <div class="hub-center-label">Hub</div>
+      <div class="hub-center-val" id="hubCenterVal">0.0V</div>
+    </div>
+    <div class="hub-regions-right">
+      <div class="hub-region" id="hubRegion2">
+        <div class="hub-region-code">Zone C</div>
+        <div class="hub-region-name">Jalan Alor Entrance</div>
+        <div class="hub-region-lux" id="hubLux2">💡 0%</div>
+        <div class="hub-region-bar"><div class="hub-region-fill" id="hubBar2" style="width:0%"></div></div>
+      </div>
+      <div class="hub-region" id="hubRegion3">
+        <div class="hub-region-code">Zone D</div>
+        <div class="hub-region-name">Fahrenheit88 Walkway</div>
+        <div class="hub-region-lux" id="hubLux3">💡 0%</div>
+        <div class="hub-region-bar"><div class="hub-region-fill" id="hubBar3" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ BREADBOARD ROUTE MAP ═══════════════════ -->
+<section id="breadboard">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <div><h2 class="sec-title">Breadboard Route Map</h2></div>
+  </div>
+  <div class="breadboard-wrap">
+    <svg viewBox="0 0 1100 640" xmlns="http://www.w3.org/2000/svg" style="font-family:'Space Mono',monospace;">
+      <defs>
+        <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <rect width="1100" height="640" fill="#13161d" rx="12"/>
+      <rect x="100" y="60" width="660" height="500" rx="10" fill="#1e2435" stroke="#2d3550" stroke-width="1.5"/>
+      <text x="430" y="52" text-anchor="middle" fill="#4a5580" font-size="11" letter-spacing="2">BREADBOARD · BUKIT BINTANG PIEZO SYSTEM</text>
+      <rect x="100" y="293" width="660" height="14" fill="#161a26" stroke="#252b40" stroke-width="1"/>
+      <text x="430" y="302.5" text-anchor="middle" fill="#2d3550" font-size="8" letter-spacing="3">· · · · · · · · · · ·</text>
+      <!-- rails -->
+      <rect x="108" y="68" width="14" height="476" rx="3" fill="rgba(239,68,68,0.08)" stroke="rgba(239,68,68,0.3)" stroke-width="1"/>
+      <text x="115" y="560" text-anchor="middle" fill="#ef4444" font-size="9" transform="rotate(-90,115,540)" letter-spacing="1.5">VCC +5V</text>
+      <rect x="128" y="68" width="14" height="476" rx="3" fill="rgba(96,165,250,0.06)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+      <text x="135" y="560" text-anchor="middle" fill="#60a5fa" font-size="9" transform="rotate(-90,135,540)" letter-spacing="1.5">GND</text>
+      <rect x="718" y="68" width="14" height="476" rx="3" fill="rgba(96,165,250,0.06)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+      <text x="725" y="560" text-anchor="middle" fill="#60a5fa" font-size="9" transform="rotate(-90,725,540)" letter-spacing="1.5">GND</text>
+      <rect x="738" y="68" width="14" height="476" rx="3" fill="rgba(239,68,68,0.04)" stroke="rgba(239,68,68,0.12)" stroke-width="1"/>
+      <!-- col labels -->
+      <g fill="#3a4260" font-size="9" letter-spacing="1">
+        <text x="168" y="82" text-anchor="middle">A</text><text x="190" y="82" text-anchor="middle">B</text>
+        <text x="212" y="82" text-anchor="middle">C</text><text x="234" y="82" text-anchor="middle">D</text>
+        <text x="256" y="82" text-anchor="middle">E</text>
+        <text x="516" y="82" text-anchor="middle">F</text><text x="538" y="82" text-anchor="middle">G</text>
+        <text x="560" y="82" text-anchor="middle">H</text><text x="582" y="82" text-anchor="middle">I</text>
+        <text x="604" y="82" text-anchor="middle">J</text>
+      </g>
+      <!-- row numbers -->
+      <g fill="#2d3550" font-size="8" text-anchor="middle">
+        <text x="152" y="102">5</text><text x="152" y="135">10</text><text x="152" y="168">15</text>
+        <text x="152" y="201">20</text><text x="152" y="234">25</text><text x="152" y="267">30</text>
+        <text x="152" y="340">35</text><text x="152" y="374">40</text><text x="152" y="408">45</text><text x="152" y="442">50</text>
+      </g>
+      <!-- P1 - Zone A -->
+      <g>
+        <rect x="155" y="88" width="64" height="50" rx="5" fill="#1a3040" stroke="#10d9a0" stroke-width="1.5"/>
+        <text x="187" y="103" text-anchor="middle" fill="#10d9a0" font-size="7" font-weight="700">Zone A</text>
+        <text x="187" y="113" text-anchor="middle" fill="#3a6080" font-size="6">Pavilion KL</text>
+        <text x="187" y="123" text-anchor="middle" fill="#2b8fd6" font-size="6">PIEZO P1</text>
+        <circle cx="168" cy="98" r="3" fill="#10d9a0"/><text x="164" y="101" text-anchor="end" fill="#10d9a0" font-size="7">S</text>
+        <circle cx="168" cy="110" r="3" fill="#60a5fa"/><text x="164" y="113" text-anchor="end" fill="#60a5fa" font-size="7">−</text>
+        <circle cx="168" cy="122" r="3" fill="#ef4444"/><text x="164" y="125" text-anchor="end" fill="#ef4444" font-size="7">+</text>
+      </g>
+      <!-- P2 - Zone B -->
+      <g>
+        <rect x="155" y="222" width="64" height="50" rx="5" fill="#1a3040" stroke="#f97316" stroke-width="1.5"/>
+        <text x="187" y="237" text-anchor="middle" fill="#f97316" font-size="7" font-weight="700">Zone B</text>
+        <text x="187" y="247" text-anchor="middle" fill="#3a6080" font-size="6">Lot 10/MRT</text>
+        <text x="187" y="257" text-anchor="middle" fill="#2b8fd6" font-size="6">PIEZO P2</text>
+        <circle cx="168" cy="232" r="3" fill="#10d9a0"/><circle cx="168" cy="244" r="3" fill="#60a5fa"/><circle cx="168" cy="256" r="3" fill="#ef4444"/>
+      </g>
+      <!-- P3 - Zone C -->
+      <g>
+        <rect x="155" y="328" width="64" height="50" rx="5" fill="#1a3040" stroke="#60a5fa" stroke-width="1.5"/>
+        <text x="187" y="343" text-anchor="middle" fill="#60a5fa" font-size="7" font-weight="700">Zone C</text>
+        <text x="187" y="353" text-anchor="middle" fill="#3a6080" font-size="6">Jalan Alor</text>
+        <text x="187" y="363" text-anchor="middle" fill="#2b8fd6" font-size="6">PIEZO P3</text>
+        <circle cx="168" cy="338" r="3" fill="#10d9a0"/><circle cx="168" cy="350" r="3" fill="#60a5fa"/><circle cx="168" cy="362" r="3" fill="#ef4444"/>
+      </g>
+      <!-- P4 - Zone D -->
+      <g>
+        <rect x="155" y="395" width="64" height="50" rx="5" fill="#1a3040" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="187" y="410" text-anchor="middle" fill="#a78bfa" font-size="7" font-weight="700">Zone D</text>
+        <text x="187" y="420" text-anchor="middle" fill="#3a6080" font-size="6">Fahrenheit88</text>
+        <text x="187" y="430" text-anchor="middle" fill="#2b8fd6" font-size="6">PIEZO P4</text>
+        <circle cx="168" cy="405" r="3" fill="#10d9a0"/><circle cx="168" cy="417" r="3" fill="#60a5fa"/><circle cx="168" cy="429" r="3" fill="#ef4444"/>
+      </g>
+      <!-- LEDs -->
+      <g>
+        <rect x="220" y="155" width="56" height="60" rx="5" fill="#1e2d1e" stroke="#2a5a2a" stroke-width="1.5"/>
+        <circle cx="248" cy="173" r="8" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="2 2"/>
+        <circle cx="248" cy="173" r="5" fill="rgba(255,255,255,0.15)"/>
+        <text x="248" y="191" text-anchor="middle" fill="#4a8a4a" font-size="7">LED #1</text>
+        <text x="248" y="200" text-anchor="middle" fill="#3a6a3a" font-size="6">Zone A</text>
+        <circle cx="228" cy="162" r="2.5" fill="#ef4444"/><text x="228" y="158" text-anchor="middle" fill="#ef4444" font-size="6">R</text>
+        <circle cx="238" cy="162" r="2.5" fill="#10d9a0"/><text x="238" y="158" text-anchor="middle" fill="#10d9a0" font-size="6">G</text>
+        <circle cx="248" cy="162" r="2.5" fill="#60a5fa"/><text x="248" y="158" text-anchor="middle" fill="#60a5fa" font-size="6">B</text>
+        <circle cx="258" cy="162" r="2.5" fill="#60a5fa"/><text x="258" y="158" text-anchor="middle" fill="#60a5fa" font-size="6">GND</text>
+      </g>
+      <g>
+        <rect x="586" y="195" width="56" height="56" rx="5" fill="#1e2d1e" stroke="#2a5a2a" stroke-width="1.5"/>
+        <circle cx="614" cy="212" r="8" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="2 2"/>
+        <circle cx="614" cy="212" r="5" fill="rgba(255,255,255,0.15)"/>
+        <text x="614" y="230" text-anchor="middle" fill="#4a8a4a" font-size="7">LED #2</text>
+        <text x="614" y="239" text-anchor="middle" fill="#3a6a3a" font-size="6">Zone B</text>
+        <circle cx="594" cy="201" r="2.5" fill="#ef4444"/><circle cx="604" cy="201" r="2.5" fill="#10d9a0"/>
+        <circle cx="614" cy="201" r="2.5" fill="#60a5fa"/><circle cx="624" cy="201" r="2.5" fill="#60a5fa"/>
+      </g>
+      <g>
+        <rect x="586" y="312" width="56" height="56" rx="5" fill="#1e2d1e" stroke="#2a5a2a" stroke-width="1.5"/>
+        <circle cx="614" cy="330" r="8" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="2 2"/>
+        <circle cx="614" cy="330" r="5" fill="rgba(255,255,255,0.15)"/>
+        <text x="614" y="348" text-anchor="middle" fill="#4a8a4a" font-size="7">LED #3</text>
+        <text x="614" y="357" text-anchor="middle" fill="#3a6a3a" font-size="6">Zone C</text>
+        <circle cx="594" cy="319" r="2.5" fill="#ef4444"/><circle cx="604" cy="319" r="2.5" fill="#10d9a0"/>
+        <circle cx="614" cy="319" r="2.5" fill="#60a5fa"/><circle cx="624" cy="319" r="2.5" fill="#60a5fa"/>
+      </g>
+      <g>
+        <rect x="586" y="392" width="56" height="56" rx="5" fill="#1e2d1e" stroke="#2a5a2a" stroke-width="1.5"/>
+        <circle cx="614" cy="410" r="8" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="2 2"/>
+        <circle cx="614" cy="410" r="5" fill="rgba(255,255,255,0.15)"/>
+        <text x="614" y="428" text-anchor="middle" fill="#4a8a4a" font-size="7">LED #4</text>
+        <text x="614" y="437" text-anchor="middle" fill="#3a6a3a" font-size="6">Zone D</text>
+        <circle cx="594" cy="399" r="2.5" fill="#ef4444"/><circle cx="604" cy="399" r="2.5" fill="#10d9a0"/>
+        <circle cx="614" cy="399" r="2.5" fill="#60a5fa"/><circle cx="624" cy="399" r="2.5" fill="#60a5fa"/>
+      </g>
+      <!-- Arduino -->
+      <rect x="810" y="80" width="265" height="430" rx="12" fill="#1a2830" stroke="#2a4860" stroke-width="2"/>
+      <text x="942" y="102" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" letter-spacing="2">ARDUINO UNO</text>
+      <rect x="820" y="108" width="245" height="2" fill="#2a4860"/>
+      <text x="830" y="128" fill="#6b7194" font-size="8" letter-spacing="1">ANALOG IN</text>
+      <g>
+        <rect x="820" y="132" width="100" height="20" rx="3" fill="#1e3240" stroke="#2a4860"/>
+        <text x="870" y="146" text-anchor="middle" fill="#10d9a0" font-size="9">A0</text><text x="928" y="146" fill="#4a5580" font-size="8">← Zone A (Pavilion)</text>
+      </g>
+      <g>
+        <rect x="820" y="156" width="100" height="20" rx="3" fill="#1e3240" stroke="#2a4860"/>
+        <text x="870" y="170" text-anchor="middle" fill="#10d9a0" font-size="9">A1</text><text x="928" y="170" fill="#4a5580" font-size="8">← Zone B (Lot 10)</text>
+      </g>
+      <g>
+        <rect x="820" y="180" width="100" height="20" rx="3" fill="#1e3240" stroke="#2a4860"/>
+        <text x="870" y="194" text-anchor="middle" fill="#10d9a0" font-size="9">A2</text><text x="928" y="194" fill="#4a5580" font-size="8">← Zone C (Jln Alor)</text>
+      </g>
+      <g>
+        <rect x="820" y="204" width="100" height="20" rx="3" fill="#1e3240" stroke="#2a4860"/>
+        <text x="870" y="218" text-anchor="middle" fill="#10d9a0" font-size="9">A3</text><text x="928" y="218" fill="#4a5580" font-size="8">← Zone D (F88)</text>
+      </g>
+      <text x="830" y="245" fill="#6b7194" font-size="8" letter-spacing="1">DIGITAL — LED #1 (Zone A)</text>
+      <g>
+        <rect x="820" y="249" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="261" text-anchor="middle" fill="#ef4444" font-size="9">Pin 9</text><text x="908" y="261" fill="#4a5580" font-size="8">→ R</text>
+        <rect x="820" y="271" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="283" text-anchor="middle" fill="#10d9a0" font-size="9">Pin 10</text><text x="908" y="283" fill="#4a5580" font-size="8">→ G</text>
+        <rect x="820" y="293" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="305" text-anchor="middle" fill="#60a5fa" font-size="9">Pin 11</text><text x="908" y="305" fill="#4a5580" font-size="8">→ B</text>
+      </g>
+      <text x="830" y="325" fill="#6b7194" font-size="8" letter-spacing="1">DIGITAL — LED #2 (Zone B)</text>
+      <g>
+        <rect x="820" y="329" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="341" text-anchor="middle" fill="#ef4444" font-size="9">Pin 3</text><text x="908" y="341" fill="#4a5580" font-size="8">→ R</text>
+        <rect x="820" y="351" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="363" text-anchor="middle" fill="#10d9a0" font-size="9">Pin 5</text><text x="908" y="363" fill="#4a5580" font-size="8">→ G</text>
+        <rect x="820" y="373" width="80" height="18" rx="3" fill="#1e2840" stroke="#2a4070"/><text x="860" y="385" text-anchor="middle" fill="#60a5fa" font-size="9">Pin 6</text><text x="908" y="385" fill="#4a5580" font-size="8">→ B</text>
+      </g>
+      <text x="830" y="407" fill="#6b7194" font-size="8" letter-spacing="1">LED #3 (Zone C) / LED #4 (Zone D)</text>
+      <text x="830" y="422" fill="#a0aac0" font-size="8">Zone C: <tspan fill="#ef4444">Pin 2</tspan> R <tspan fill="#10d9a0">Pin 4</tspan> G <tspan fill="#60a5fa">Pin 7</tspan> B</text>
+      <text x="830" y="440" fill="#a0aec0" font-size="8">Zone D: <tspan fill="#ef4444">Pin 8</tspan> R <tspan fill="#10d9a0">Pin 12</tspan> G <tspan fill="#60a5fa">Pin 13</tspan> B</text>
+      <!-- signal lines -->
+      <path d="M168 98 L144 98 L144 78 L790 78 L790 138 L820 138" fill="none" stroke="#f5c518" stroke-width="2" stroke-dasharray="5 3" opacity="0.85" marker-end="url(#arw)"/>
+      <text x="480" y="74" text-anchor="middle" fill="#f5c518" font-size="9">P1 (Zone A)→A0</text>
+      <path d="M168 232 L144 232 L144 72 L795 72 L795 162 L820 162" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="5 3" opacity="0.75" marker-end="url(#arw)"/>
+      <text x="480" y="68" text-anchor="middle" fill="#f97316" font-size="8">P2 (Zone B)→A1</text>
+      <path d="M168 338 L144 338 L144 66 L800 66 L800 186 L820 186" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="5 3" opacity="0.7" marker-end="url(#arw)"/>
+      <path d="M168 405 L144 405 L144 60 L805 60 L805 210 L820 210" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 3" opacity="0.65" marker-end="url(#arw)"/>
+      <!-- GND wires -->
+      <path d="M168 110 L135 110" fill="none" stroke="#5a6a90" stroke-width="1.8" opacity="0.8"/>
+      <path d="M168 244 L135 244" fill="none" stroke="#5a6a90" stroke-width="1.8" opacity="0.8"/>
+      <path d="M168 350 L135 350" fill="none" stroke="#5a6a90" stroke-width="1.8" opacity="0.8"/>
+      <path d="M168 417 L135 417" fill="none" stroke="#5a6a90" stroke-width="1.8" opacity="0.8"/>
+      <!-- LED wire connections -->
+      <path d="M228 162 L228 148 L775 148 L775 341 L820 341" fill="none" stroke="#cc2040" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <path d="M238 162 L238 144 L770 144 L770 363 L820 363" fill="none" stroke="#04a070" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <path d="M248 162 L248 140 L765 140 L765 385 L820 385" fill="none" stroke="#2080c0" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <path d="M594 202 L594 186 L760 186 L760 331 L820 331" fill="none" stroke="#cc2040" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <path d="M604 202 L604 182 L755 182 L755 353 L820 353" fill="none" stroke="#04a070" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <path d="M614 202 L614 178 L750 178 L750 375 L820 375" fill="none" stroke="#2080c0" stroke-width="1.8" opacity="0.8" marker-end="url(#arw)"/>
+      <text x="200" y="290" text-anchor="middle" fill="#2d3a58" font-size="8" letter-spacing="2">LEFT HALF (A–E)</text>
+      <text x="560" y="290" text-anchor="middle" fill="#2d3a58" font-size="8" letter-spacing="2">RIGHT HALF (F–J)</text>
+      <!-- legend -->
+      <g transform="translate(750,590)">
+        <text x="0" y="0" fill="#3a4260" font-size="8" letter-spacing="1">WIRE LEGEND</text>
+        <line x1="0" y1="8" x2="18" y2="8" stroke="#f5c518" stroke-width="2" stroke-dasharray="4 2"/><text x="22" y="12" fill="#f5c518" font-size="8">Signal</text>
+        <line x1="60" y1="8" x2="78" y2="8" stroke="#cc2040" stroke-width="2"/><text x="82" y="12" fill="#cc3050" font-size="8">R</text>
+        <line x1="95" y1="8" x2="113" y2="8" stroke="#04a070" stroke-width="2"/><text x="117" y="12" fill="#04a070" font-size="8">G</text>
+        <line x1="130" y1="8" x2="148" y2="8" stroke="#2080c0" stroke-width="2"/><text x="152" y="12" fill="#2080c0" font-size="8">B</text>
+        <line x1="165" y1="8" x2="183" y2="8" stroke="#5a6a90" stroke-width="2"/><text x="187" y="12" fill="#5a6a90" font-size="8">GND</text>
+      </g>
+    </svg>
+  </div>
+  <div class="note">
+    <span class="note-icon">ℹ️</span>
+    <span><strong>Layout note:</strong> All piezo sensors (Zone A–D) plug into the <strong>left half (columns A–E)</strong> at rows 5, 25, 35, and 45. RGB LED #1 (Zone A) sits in the left half at rows 15–18; LED #2–4 (Zones B–D) sit in the <strong>right half (columns H–J)</strong> at rows 22–25, 32–35, and 42–45.</span>
+  </div>
+</section>
+
+<!-- ═══════════════════ ORGANISED CIRCUIT DIAGRAM ═══════════════════ -->
+<section id="circuit">
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <div><h2 class="sec-title">Organised Circuit Diagram</h2></div>
+  </div>
+
+  <div class="comp-legend">
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--purple)">R</div><div><div class="comp-name">Resistors</div><div class="comp-desc">1MΩ × 4 (piezo) · 150Ω × 12 (LED)</div></div></div>
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--blue)">C</div><div><div class="comp-name">Capacitors</div><div class="comp-desc">100μF electrolytic + 0.1μF ceramic</div></div></div>
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--orange)">D</div><div><div class="comp-name">Rectifier Diodes</div><div class="comp-desc">1N4148 × 4 (reverse protection)</div></div></div>
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--yellow)">U1</div><div><div class="comp-name">DC-DC Boost</div><div class="comp-desc">MT3608 step-up converter</div></div></div>
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--accent)">VM</div><div><div class="comp-name">Voltmeter</div><div class="comp-desc">0–30V LCD display</div></div></div>
+    <div class="comp-item"><div class="comp-symbol" style="color:var(--red)">Z</div><div><div class="comp-name">Zener Diode</div><div class="comp-desc">5.1V (overvoltage protection)</div></div></div>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" style="font-family:'Space Mono',monospace">
+      <defs>
+        <marker id="arw2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <rect width="1180" height="620" fill="#111827" rx="12"/>
+      <text x="590" y="24" text-anchor="middle" fill="#4a5580" font-size="11" letter-spacing="3">PIEZOELECTRIC ENERGY HARVESTING · BUKIT BINTANG STREET LIGHTING SYSTEM</text>
+      <!-- Piezo Array panel -->
+      <rect x="30" y="50" width="180" height="540" rx="12" fill="#161d2e" stroke="#1f2d45" stroke-width="1.5"/>
+      <text x="120" y="72" text-anchor="middle" fill="#6b7488" font-size="11" font-weight="700" letter-spacing="2">PIEZO ARRAY</text>
+      <line x1="40" y1="80" x2="200" y2="80" stroke="#1f2d45"/>
+      <!-- P1 Zone A -->
+      <g transform="translate(60,100)">
+        <rect x="0" y="0" width="120" height="85" rx="8" fill="#0f1a2e" stroke="#10d9a0" stroke-width="1.5"/>
+        <circle cx="60" cy="32" r="22" fill="#0d1524" stroke="#10d9a0" stroke-width="1"/>
+        <circle cx="60" cy="32" r="14" fill="#111827" stroke="#10d9a0" stroke-width="1"/>
+        <circle cx="60" cy="32" r="6" fill="#10d9a0" opacity=".4"/>
+        <text x="60" y="65" text-anchor="middle" fill="#10d9a0" font-size="9" font-weight="700">P1 · Zone A</text>
+        <text x="60" y="78" text-anchor="middle" fill="#4a5570" font-size="7">Pavilion KL</text>
+        <circle cx="14" cy="20" r="3" fill="#10d9a0"/><circle cx="14" cy="36" r="3" fill="#4a5570"/><circle cx="14" cy="52" r="3" fill="#ef4444"/>
+      </g>
+      <!-- P2 Zone B -->
+      <g transform="translate(60,220)">
+        <rect x="0" y="0" width="120" height="85" rx="8" fill="#0f1a2e" stroke="#f97316" stroke-width="1.5"/>
+        <circle cx="60" cy="32" r="22" fill="#0d1524" stroke="#f97316" stroke-width="1"/>
+        <circle cx="60" cy="32" r="14" fill="#111827" stroke="#f97316" stroke-width="1"/>
+        <circle cx="60" cy="32" r="6" fill="#f97316" opacity=".4"/>
+        <text x="60" y="65" text-anchor="middle" fill="#f97316" font-size="9" font-weight="700">P2 · Zone B</text>
+        <text x="60" y="78" text-anchor="middle" fill="#4a5570" font-size="7">Lot 10/MRT</text>
+        <circle cx="14" cy="20" r="3" fill="#10d9a0"/><circle cx="14" cy="36" r="3" fill="#4a5570"/><circle cx="14" cy="52" r="3" fill="#ef4444"/>
+      </g>
+      <!-- P3 Zone C -->
+      <g transform="translate(60,340)">
+        <rect x="0" y="0" width="120" height="85" rx="8" fill="#0f1a2e" stroke="#60a5fa" stroke-width="1.5"/>
+        <circle cx="60" cy="32" r="22" fill="#0d1524" stroke="#60a5fa" stroke-width="1"/>
+        <circle cx="60" cy="32" r="14" fill="#111827" stroke="#60a5fa" stroke-width="1"/>
+        <circle cx="60" cy="32" r="6" fill="#60a5fa" opacity=".4"/>
+        <text x="60" y="65" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="700">P3 · Zone C</text>
+        <text x="60" y="78" text-anchor="middle" fill="#4a5570" font-size="7">Jalan Alor</text>
+        <circle cx="14" cy="20" r="3" fill="#10d9a0"/><circle cx="14" cy="36" r="3" fill="#4a5570"/><circle cx="14" cy="52" r="3" fill="#ef4444"/>
+      </g>
+      <!-- P4 Zone D -->
+      <g transform="translate(60,460)">
+        <rect x="0" y="0" width="120" height="85" rx="8" fill="#0f1a2e" stroke="#a78bfa" stroke-width="1.5"/>
+        <circle cx="60" cy="32" r="22" fill="#0d1524" stroke="#a78bfa" stroke-width="1"/>
+        <circle cx="60" cy="32" r="14" fill="#111827" stroke="#a78bfa" stroke-width="1"/>
+        <circle cx="60" cy="32" r="6" fill="#a78bfa" opacity=".4"/>
+        <text x="60" y="65" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="700">P4 · Zone D</text>
+        <text x="60" y="78" text-anchor="middle" fill="#4a5570" font-size="7">Fahrenheit88</text>
+        <circle cx="14" cy="20" r="3" fill="#10d9a0"/><circle cx="14" cy="36" r="3" fill="#4a5570"/><circle cx="14" cy="52" r="3" fill="#ef4444"/>
+      </g>
+      <!-- Protection panel -->
+      <rect x="240" y="50" width="180" height="540" rx="12" fill="#161d2e" stroke="#1f2d45" stroke-width="1.5"/>
+      <text x="330" y="72" text-anchor="middle" fill="#6b7488" font-size="11" font-weight="700" letter-spacing="2">PROTECTION</text>
+      <line x1="250" y1="80" x2="410" y2="80" stroke="#1f2d45"/>
+      <g transform="translate(260,110)"><rect x="0" y="0" width="140" height="60" rx="8" fill="#0f1320" stroke="#2d1f50"/><rect x="14" y="22" width="50" height="14" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="39" y="32" text-anchor="middle" fill="#7c5fe0" font-size="9" font-weight="700">1MΩ</text><text x="39" y="48" text-anchor="middle" fill="#7c5fe0" font-size="8">R1 (Zone A)</text><polygon points="86,22 110,29 86,36" fill="#2a1808" stroke="#f97316" stroke-width="1.2"/><line x1="110" y1="22" x2="110" y2="36" stroke="#f97316" stroke-width="1.5"/><text x="98" y="48" text-anchor="middle" fill="#f97316" font-size="8">D1 1N4148</text></g>
+      <g transform="translate(260,230)"><rect x="0" y="0" width="140" height="60" rx="8" fill="#0f1320" stroke="#2d1f50"/><rect x="14" y="22" width="50" height="14" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="39" y="32" text-anchor="middle" fill="#7c5fe0" font-size="9" font-weight="700">1MΩ</text><text x="39" y="48" text-anchor="middle" fill="#7c5fe0" font-size="8">R2 (Zone B)</text><polygon points="86,22 110,29 86,36" fill="#2a1808" stroke="#f97316" stroke-width="1.2"/><line x1="110" y1="22" x2="110" y2="36" stroke="#f97316" stroke-width="1.5"/><text x="98" y="48" text-anchor="middle" fill="#f97316" font-size="8">D2</text></g>
+      <g transform="translate(260,350)"><rect x="0" y="0" width="140" height="60" rx="8" fill="#0f1320" stroke="#2d1f50"/><rect x="14" y="22" width="50" height="14" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="39" y="32" text-anchor="middle" fill="#7c5fe0" font-size="9" font-weight="700">1MΩ</text><text x="39" y="48" text-anchor="middle" fill="#7c5fe0" font-size="8">R3 (Zone C)</text><polygon points="86,22 110,29 86,36" fill="#2a1808" stroke="#f97316" stroke-width="1.2"/><line x1="110" y1="22" x2="110" y2="36" stroke="#f97316" stroke-width="1.5"/><text x="98" y="48" text-anchor="middle" fill="#f97316" font-size="8">D3</text></g>
+      <g transform="translate(260,470)"><rect x="0" y="0" width="140" height="60" rx="8" fill="#0f1320" stroke="#2d1f50"/><rect x="14" y="22" width="50" height="14" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="39" y="32" text-anchor="middle" fill="#7c5fe0" font-size="9" font-weight="700">1MΩ</text><text x="39" y="48" text-anchor="middle" fill="#7c5fe0" font-size="8">R4 (Zone D)</text><polygon points="86,22 110,29 86,36" fill="#2a1808" stroke="#f97316" stroke-width="1.2"/><line x1="110" y1="22" x2="110" y2="36" stroke="#f97316" stroke-width="1.5"/><text x="98" y="48" text-anchor="middle" fill="#f97316" font-size="8">D4</text></g>
+      <!-- wires piezo→protection -->
+      <g stroke-width="1.6" fill="none">
+        <path d="M180 120 H260 V132" stroke="#10d9a0"/><path d="M180 240 H260 V252" stroke="#f97316"/>
+        <path d="M180 360 H260 V372" stroke="#60a5fa"/><path d="M180 480 H260 V492" stroke="#a78bfa"/>
+      </g>
+      <!-- Filter & Boost panel -->
+      <rect x="450" y="50" width="220" height="540" rx="12" fill="#161d2e" stroke="#1f2d45" stroke-width="1.5"/>
+      <text x="560" y="72" text-anchor="middle" fill="#6b7488" font-size="11" font-weight="700" letter-spacing="2">FILTER &amp; BOOST</text>
+      <line x1="460" y1="80" x2="660" y2="80" stroke="#1f2d45"/>
+      <g transform="translate(478,110)">
+        <rect x="0" y="0" width="170" height="100" rx="8" fill="#0d1828" stroke="#1e3c5a"/>
+        <text x="85" y="16" text-anchor="middle" fill="#60a5fa" font-size="9" font-weight="700">FILTER STAGE</text>
+        <g transform="translate(20,30)"><rect x="0" y="0" width="34" height="40" rx="4" fill="#0a1828" stroke="#2b8fd6"/><text x="17" y="24" text-anchor="middle" fill="#2b8fd6" font-size="9" font-weight="700">100μF</text><text x="17" y="56" text-anchor="middle" fill="#2b8fd6" font-size="8">C1</text><text x="-2" y="14" fill="#2b8fd6" font-size="9">+</text></g>
+        <g transform="translate(72,30)"><line x1="0" y1="0" x2="22" y2="0" stroke="#2b8fd6" stroke-width="2"/><line x1="0" y1="14" x2="22" y2="14" stroke="#2b8fd6" stroke-width="2"/><line x1="11" y1="-12" x2="11" y2="0" stroke="#2b8fd6"/><line x1="11" y1="14" x2="11" y2="26" stroke="#2b8fd6"/><text x="11" y="48" text-anchor="middle" fill="#2b8fd6" font-size="9" font-weight="700">0.1μF</text><text x="11" y="62" text-anchor="middle" fill="#2b8fd6" font-size="8">C2</text></g>
+        <g transform="translate(120,30)"><polygon points="0,4 18,12 0,20" fill="#2a0814" stroke="#ef4444" stroke-width="1.2"/><path d="M18 2 L18 22 M18 2 L22 2 M18 22 L14 22" stroke="#ef4444" stroke-width="1.2" fill="none"/><text x="14" y="48" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="700">Z1 5.1V</text><text x="14" y="62" text-anchor="middle" fill="#ef4444" font-size="8">Zener</text></g>
+      </g>
+      <!-- Boost MT3608 -->
+      <g transform="translate(478,240)">
+        <rect x="0" y="0" width="170" height="120" rx="10" fill="#1a1400" stroke="#f5c518" stroke-width="2"/>
+        <rect x="0" y="0" width="170" height="22" rx="10" fill="#2a2000"/>
+        <text x="85" y="15" text-anchor="middle" fill="#f5c518" font-size="10" font-weight="700" letter-spacing="2">DC-DC BOOST · MT3608</text>
+        <path d="M30 60 q10-16 20 0 q10-16 20 0 q10-16 20 0 q10-16 20 0" fill="none" stroke="#f5c518" stroke-width="2"/>
+        <text x="85" y="86" text-anchor="middle" fill="#d4a800" font-size="9">L1 · 22μH inductor</text>
+        <text x="85" y="102" text-anchor="middle" fill="#f5c518" font-size="9" font-weight="700">Vin 0.5–3V → Vout 5V</text>
+        <circle cx="20" cy="100" r="4" fill="#f97316"/><text x="14" y="116" fill="#f97316" font-size="8">IN+</text>
+        <circle cx="150" cy="100" r="4" fill="#10d9a0"/><text x="142" y="116" fill="#10d9a0" font-size="8">OUT</text>
+      </g>
+      <!-- Voltmeter -->
+      <g transform="translate(478,400)">
+        <rect x="0" y="0" width="170" height="80" rx="8" fill="#080d18" stroke="#1f2d45" stroke-width="1.5"/>
+        <rect x="10" y="10" width="150" height="40" rx="4" fill="#040810" stroke="#0d1a2e"/>
+        <text x="85" y="38" text-anchor="middle" fill="#10d9a0" font-size="20" font-weight="700" id="svgVoltText">0.00 V</text>
+        <text x="85" y="64" text-anchor="middle" fill="#4a5580" font-size="9" font-weight="700" letter-spacing="2">DC VOLTMETER · VM1</text>
+      </g>
+      <!-- wires protection→filter -->
+      <g stroke-width="1.8" fill="none" stroke="#f97316">
+        <path d="M400 140 H478 V160"/><path d="M400 260 H478 V230"/><path d="M400 380 H478 V300"/><path d="M400 500 H478 V330"/>
+      </g>
+      <!-- Arduino + LEDs panel -->
+      <rect x="700" y="50" width="460" height="540" rx="12" fill="#161d2e" stroke="#1f2d45" stroke-width="1.5"/>
+      <text x="930" y="72" text-anchor="middle" fill="#6b7488" font-size="11" font-weight="700" letter-spacing="2">ARDUINO UNO &amp; RGB LED ARRAY</text>
+      <line x1="710" y1="80" x2="1150" y2="80" stroke="#1f2d45"/>
+      <!-- Arduino board -->
+      <g transform="translate(720,100)">
+        <rect x="0" y="0" width="190" height="470" rx="10" fill="#0a1828" stroke="#1e3c5a" stroke-width="2"/>
+        <text x="95" y="20" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700" letter-spacing="2">ARDUINO UNO</text>
+        <rect x="6" y="30" width="34" height="20" rx="3" fill="#0d1828" stroke="#1e3c5a"/>
+        <text x="23" y="44" text-anchor="middle" fill="#60a5fa" font-size="8">USB</text>
+        <text x="14" y="72" fill="#4a5580" font-size="9" letter-spacing="1" font-weight="700">ANALOG IN</text>
+        <g font-size="9">
+          <rect x="14" y="78" width="80" height="18" rx="3" fill="#0a2018" stroke="#10d9a0"/><text x="54" y="91" text-anchor="middle" fill="#10d9a0" font-weight="700">A0</text><text x="100" y="91" fill="#4a5580" font-size="7">← Zone A</text>
+          <rect x="14" y="100" width="80" height="18" rx="3" fill="#0a2018" stroke="#10d9a0"/><text x="54" y="113" text-anchor="middle" fill="#10d9a0" font-weight="700">A1</text><text x="100" y="113" fill="#4a5580" font-size="7">← Zone B</text>
+          <rect x="14" y="122" width="80" height="18" rx="3" fill="#0a2018" stroke="#10d9a0"/><text x="54" y="135" text-anchor="middle" fill="#10d9a0" font-weight="700">A2</text><text x="100" y="135" fill="#4a5580" font-size="7">← Zone C</text>
+          <rect x="14" y="144" width="80" height="18" rx="3" fill="#0a2018" stroke="#10d9a0"/><text x="54" y="157" text-anchor="middle" fill="#10d9a0" font-weight="700">A3</text><text x="100" y="157" fill="#4a5580" font-size="7">← Zone D</text>
+        </g>
+        <text x="14" y="184" fill="#4a5580" font-size="9" letter-spacing="1" font-weight="700">DIGITAL OUT (PWM)</text>
+        <g font-size="8.5">
+          <rect x="14" y="190" width="52" height="16" rx="3" fill="#200814" stroke="#ef4444"/><text x="40" y="202" text-anchor="middle" fill="#ef4444">Pin 9</text>
+          <rect x="70" y="190" width="52" height="16" rx="3" fill="#081a10" stroke="#10d9a0"/><text x="96" y="202" text-anchor="middle" fill="#10d9a0">Pin 10</text>
+          <rect x="126" y="190" width="52" height="16" rx="3" fill="#08101a" stroke="#60a5fa"/><text x="152" y="202" text-anchor="middle" fill="#60a5fa">Pin 11</text>
+          <text x="14" y="218" fill="#4a5580" font-size="8">→ Zone A LED (R/G/B)</text>
+          <rect x="14" y="226" width="52" height="16" rx="3" fill="#200814" stroke="#ef4444"/><text x="40" y="238" text-anchor="middle" fill="#ef4444">Pin 3</text>
+          <rect x="70" y="226" width="52" height="16" rx="3" fill="#081a10" stroke="#10d9a0"/><text x="96" y="238" text-anchor="middle" fill="#10d9a0">Pin 5</text>
+          <rect x="126" y="226" width="52" height="16" rx="3" fill="#08101a" stroke="#60a5fa"/><text x="152" y="238" text-anchor="middle" fill="#60a5fa">Pin 6</text>
+          <text x="14" y="254" fill="#4a5580" font-size="8">→ Zone B LED (R/G/B)</text>
+          <rect x="14" y="262" width="52" height="16" rx="3" fill="#200814" stroke="#ef4444"/><text x="40" y="274" text-anchor="middle" fill="#ef4444">Pin 2</text>
+          <rect x="70" y="262" width="52" height="16" rx="3" fill="#081a10" stroke="#10d9a0"/><text x="96" y="274" text-anchor="middle" fill="#10d9a0">Pin 4</text>
+          <rect x="126" y="262" width="52" height="16" rx="3" fill="#08101a" stroke="#60a5fa"/><text x="152" y="274" text-anchor="middle" fill="#60a5fa">Pin 7</text>
+          <text x="14" y="290" fill="#4a5580" font-size="8">→ Zone C LED (R/G/B)</text>
+          <rect x="14" y="298" width="52" height="16" rx="3" fill="#200814" stroke="#ef4444"/><text x="40" y="310" text-anchor="middle" fill="#ef4444">Pin 8</text>
+          <rect x="70" y="298" width="52" height="16" rx="3" fill="#081a10" stroke="#10d9a0"/><text x="96" y="310" text-anchor="middle" fill="#10d9a0">Pin 12</text>
+          <rect x="126" y="298" width="52" height="16" rx="3" fill="#08101a" stroke="#60a5fa"/><text x="152" y="310" text-anchor="middle" fill="#60a5fa">Pin 13</text>
+          <text x="14" y="326" fill="#4a5580" font-size="8">→ Zone D LED (R/G/B)</text>
+        </g>
+        <text x="14" y="356" fill="#4a5580" font-size="9" letter-spacing="1" font-weight="700">POWER</text>
+        <rect x="14" y="362" width="60" height="18" rx="3" fill="#200814" stroke="#ef4444"/><text x="44" y="375" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="700">5V</text>
+        <rect x="80" y="362" width="60" height="18" rx="3" fill="#0d1020" stroke="#4a5570"/><text x="110" y="375" text-anchor="middle" fill="#4a5570" font-size="9" font-weight="700">GND</text>
+      </g>
+      <!-- LED array -->
+      <g transform="translate(940,110)">
+        <rect x="0" y="0" width="180" height="80" rx="10" fill="#0f1a10" stroke="#1f2d1f" stroke-width="1.5"/>
+        <text x="90" y="16" text-anchor="middle" fill="#6b7488" font-size="9" font-weight="700">LED #1 · Zone A · Pavilion KL</text>
+        <rect x="14" y="28" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="36" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="42" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="50" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="56" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="64" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <circle cx="130" cy="46" r="22" fill="#111827" stroke="#1f2d45" stroke-width="2" id="cled1"/>
+        <text x="130" y="50" text-anchor="middle" font-size="22">💡</text>
+      </g>
+      <g transform="translate(940,210)">
+        <rect x="0" y="0" width="180" height="80" rx="10" fill="#0f1a10" stroke="#1f2d1f" stroke-width="1.5"/>
+        <text x="90" y="16" text-anchor="middle" fill="#6b7488" font-size="9" font-weight="700">LED #2 · Zone B · Lot 10/MRT</text>
+        <rect x="14" y="28" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="36" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="42" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="50" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="56" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="64" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <circle cx="130" cy="46" r="22" fill="#111827" stroke="#1f2d45" stroke-width="2" id="cled2"/>
+        <text x="130" y="50" text-anchor="middle" font-size="22">💡</text>
+      </g>
+      <g transform="translate(940,310)">
+        <rect x="0" y="0" width="180" height="80" rx="10" fill="#0f1a10" stroke="#1f2d1f" stroke-width="1.5"/>
+        <text x="90" y="16" text-anchor="middle" fill="#6b7488" font-size="9" font-weight="700">LED #3 · Zone C · Jalan Alor</text>
+        <rect x="14" y="28" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="36" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="42" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="50" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="56" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="64" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <circle cx="130" cy="46" r="22" fill="#111827" stroke="#1f2d45" stroke-width="2" id="cled3"/>
+        <text x="130" y="50" text-anchor="middle" font-size="22">💡</text>
+      </g>
+      <g transform="translate(940,410)">
+        <rect x="0" y="0" width="180" height="80" rx="10" fill="#0f1a10" stroke="#1f2d1f" stroke-width="1.5"/>
+        <text x="90" y="16" text-anchor="middle" fill="#6b7488" font-size="9" font-weight="700">LED #4 · Zone D · Fahrenheit88</text>
+        <rect x="14" y="28" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="36" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="42" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="50" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <rect x="14" y="56" width="40" height="10" rx="2" fill="#1a1238" stroke="#7c5fe0"/><text x="34" y="64" text-anchor="middle" fill="#7c5fe0" font-size="7">150Ω</text>
+        <circle cx="130" cy="46" r="22" fill="#111827" stroke="#1f2d45" stroke-width="2" id="cled4"/>
+        <text x="130" y="50" text-anchor="middle" font-size="22">💡</text>
+      </g>
+      <!-- boost to arduino -->
+      <path d="M648 340 H700 V470" stroke="#f5c518" stroke-width="2" fill="none" marker-end="url(#arw2)"/>
+    </svg>
+  </div>
+  <div class="note" style="margin-top:20px;">
+    <span class="note-icon">📐</span>
+    <span>Signal path: <strong>Zone Piezo → 1MΩ Protection (R+Diode) → 100μF Filter (C1+C2+Zener) → MT3608 DC-DC Boost → Voltmeter → Arduino UNO → RGB LED</strong>. Each zone is colour-coded: Zone A green, Zone B orange, Zone C blue, Zone D purple.</span>
+  </div>
+</section>
+
+<!-- ═══════════════════ PIEZO SENSOR WIRING ═══════════════════ -->
+<section id="piezo">
+  <div class="sec-head">
+    <span class="sec-num">06</span>
+    <div><h2 class="sec-title">Piezoelectric Sensor Wiring</h2></div>
+  </div>
+  <div class="table-grid">
+    <div>
+      <div class="table-section-label" style="color:var(--accent);">PIEZO P1 · Zone A · Pavilion KL Crossing · rows 5–7</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole</th><th>Jumper to</th><th>Through</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>S signal</td><td><span class="hole">A5</span> → <span class="hole">B5</span></td><td>Arduino <span class="pill pill-accent">A0</span></td><td>R1 1MΩ + D1 1N4148</td><td><span class="pill pill-yellow">● yellow</span></td></tr>
+          <tr><td>− GND</td><td><span class="hole">A6</span> → <span class="hole">B6</span></td><td>Left blue power rail</td><td>—</td><td><span class="pill pill-black">● black</span></td></tr>
+          <tr><td>+ VCC</td><td><span class="hole">A7</span> → <span class="hole">B7</span></td><td>Left red rail (+5V)</td><td>—</td><td><span class="pill pill-red">● red</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--orange);">PIEZO P2 · Zone B · Lot 10 / MRT Entrance · rows 25–27</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole</th><th>Jumper to</th><th>Through</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td><span class="hole">A25</span> → <span class="hole">B25</span></td><td>Arduino <span class="pill pill-accent">A1</span></td><td>R2 1MΩ + D2</td><td><span class="pill pill-yellow">● yellow</span></td></tr>
+          <tr><td>−</td><td><span class="hole">A26</span> → <span class="hole">B26</span></td><td>Left blue rail</td><td>—</td><td><span class="pill pill-black">● black</span></td></tr>
+          <tr><td>+</td><td><span class="hole">A27</span> → <span class="hole">B27</span></td><td>Left red rail</td><td>—</td><td><span class="pill pill-red">● red</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--blue);">PIEZO P3 · Zone C · Jalan Alor Entrance · rows 35–37</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole</th><th>Jumper to</th><th>Through</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td><span class="hole">A35</span> → <span class="hole">B35</span></td><td>Arduino <span class="pill pill-accent">A2</span></td><td>R3 1MΩ + D3</td><td><span class="pill pill-yellow">● yellow</span></td></tr>
+          <tr><td>−</td><td><span class="hole">A36</span> → <span class="hole">B36</span></td><td>Left blue rail</td><td>—</td><td><span class="pill pill-black">● black</span></td></tr>
+          <tr><td>+</td><td><span class="hole">A37</span> → <span class="hole">B37</span></td><td>Left red rail</td><td>—</td><td><span class="pill pill-red">● red</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--purple);">PIEZO P4 · Zone D · Fahrenheit88 Walkway · rows 45–47</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole</th><th>Jumper to</th><th>Through</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td><span class="hole">A45</span> → <span class="hole">B45</span></td><td>Arduino <span class="pill pill-accent">A3</span></td><td>R4 1MΩ + D4</td><td><span class="pill pill-yellow">● yellow</span></td></tr>
+          <tr><td>−</td><td><span class="hole">A46</span> → <span class="hole">B46</span></td><td>Left blue rail</td><td>—</td><td><span class="pill pill-black">● black</span></td></tr>
+          <tr><td>+</td><td><span class="hole">A47</span> → <span class="hole">B47</span></td><td>Left red rail</td><td>—</td><td><span class="pill pill-red">● red</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ RGB LED WIRING ═══════════════════ -->
+<section id="leds">
+  <div class="sec-head">
+    <span class="sec-num">07</span>
+    <div><h2 class="sec-title">RGB LED Wiring (with current-limiting resistors)</h2></div>
+  </div>
+  <div class="table-grid">
+    <div>
+      <div class="table-section-label" style="color:var(--accent);">LED #1 · Zone A · Pavilion KL Crossing · cols D/E rows 15–18</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole</th><th>Resistor</th><th>To Arduino</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>R</td><td><span class="hole">D15</span> / <span class="hole">E15</span></td><td><span class="pill pill-purple">R5 150Ω</span></td><td><span class="pill pill-red">Pin 9</span></td><td><span class="pill pill-red">● red</span></td></tr>
+          <tr><td>G</td><td><span class="hole">D16</span> / <span class="hole">E16</span></td><td><span class="pill pill-purple">R6 150Ω</span></td><td><span class="pill pill-green">Pin 10</span></td><td><span class="pill pill-green">● green</span></td></tr>
+          <tr><td>B</td><td><span class="hole">D17</span> / <span class="hole">E17</span></td><td><span class="pill pill-purple">R7 150Ω</span></td><td><span class="pill pill-blue">Pin 11</span></td><td><span class="pill pill-blue">● blue</span></td></tr>
+          <tr><td>GND</td><td><span class="hole">D18</span> / <span class="hole">E18</span></td><td>—</td><td>Left blue rail</td><td><span class="pill pill-black">● black</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--orange);">LED #2 · Zone B · Lot 10 / MRT Entrance · cols J/H rows 22–25</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole J</th><th>Jumper H</th><th>To</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>R</td><td><span class="hole">J22</span></td><td><span class="hole">H22</span></td><td><span class="pill pill-red">Pin 3</span></td><td><span class="pill pill-red">● red</span></td></tr>
+          <tr><td>G</td><td><span class="hole">J23</span></td><td><span class="hole">H23</span></td><td><span class="pill pill-green">Pin 5</span></td><td><span class="pill pill-green">● green</span></td></tr>
+          <tr><td>B</td><td><span class="hole">J24</span></td><td><span class="hole">H24</span></td><td><span class="pill pill-blue">Pin 6</span></td><td><span class="pill pill-blue">● blue</span></td></tr>
+          <tr><td>GND</td><td><span class="hole">J25</span></td><td><span class="hole">H25</span></td><td>Right blue rail</td><td><span class="pill pill-black">● black</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--blue);">LED #3 · Zone C · Jalan Alor Entrance · cols J/H rows 32–35</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole J</th><th>Jumper H</th><th>To</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>R</td><td><span class="hole">J32</span></td><td><span class="hole">H32</span></td><td><span class="pill pill-red">Pin 2</span></td><td><span class="pill pill-red">● red</span></td></tr>
+          <tr><td>G</td><td><span class="hole">J33</span></td><td><span class="hole">H33</span></td><td><span class="pill pill-green">Pin 4</span></td><td><span class="pill pill-green">● green</span></td></tr>
+          <tr><td>B</td><td><span class="hole">J34</span></td><td><span class="hole">H34</span></td><td><span class="pill pill-blue">Pin 7</span></td><td><span class="pill pill-blue">● blue</span></td></tr>
+          <tr><td>GND</td><td><span class="hole">J35</span></td><td><span class="hole">H35</span></td><td>Right blue rail</td><td><span class="pill pill-black">● black</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label" style="color:var(--purple);">LED #4 · Zone D · Fahrenheit88 Walkway · cols J/H rows 42–45</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Hole J</th><th>Jumper H</th><th>To</th><th>Wire</th></tr></thead>
+        <tbody>
+          <tr><td>R</td><td><span class="hole">J42</span></td><td><span class="hole">H42</span></td><td><span class="pill pill-red">Pin 8</span></td><td><span class="pill pill-red">● red</span></td></tr>
+          <tr><td>G</td><td><span class="hole">J43</span></td><td><span class="hole">H43</span></td><td><span class="pill pill-green">Pin 12</span></td><td><span class="pill pill-green">● green</span></td></tr>
+          <tr><td>B</td><td><span class="hole">J44</span></td><td><span class="hole">H44</span></td><td><span class="pill pill-blue">Pin 13</span></td><td><span class="pill pill-blue">● blue</span></td></tr>
+          <tr><td>GND</td><td><span class="hole">J45</span></td><td><span class="hole">H45</span></td><td>Right blue rail</td><td><span class="pill pill-black">● black</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="note warn" style="margin-top:20px;">
+    <span class="note-icon">⚠️</span>
+    <span><strong>Why current-limiting resistors:</strong> each R/G/B channel needs a 150Ω resistor (R5–R16) in series. Arduino digital pins are limited to 40 mA; direct connection can damage the pin. 150Ω at 5V limits current to ~22 mA, safely within the LED's range.</span>
+  </div>
+</section>
+
+<!-- ═══════════════════ ARDUINO PIN ASSIGNMENTS ═══════════════════ -->
+<section id="arduino">
+  <div class="sec-head">
+    <span class="sec-num">08</span>
+    <div><h2 class="sec-title">Arduino Pin Assignments</h2></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div>
+      <div class="table-section-label">ANALOG IN</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Connected to</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-accent">A0</span></td><td>Zone A · Pavilion KL (via R1+D1)</td><td>Vibration input 1</td></tr>
+          <tr><td><span class="pill pill-accent">A1</span></td><td>Zone B · Lot 10/MRT (via R2+D2)</td><td>Vibration input 2</td></tr>
+          <tr><td><span class="pill pill-accent">A2</span></td><td>Zone C · Jalan Alor (via R3+D3)</td><td>Vibration input 3</td></tr>
+          <tr><td><span class="pill pill-accent">A3</span></td><td>Zone D · Fahrenheit88 (via R4+D4)</td><td>Vibration input 4</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div>
+      <div class="table-section-label">POWER</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Pin</th><th>Connection</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill pill-red">5V</span></td><td>Left red rail + MT3608 OUT</td><td>Piezo VCC + boost output</td></tr>
+          <tr><td><span class="pill pill-black">GND</span></td><td>Left blue rail</td><td>Left ground</td></tr>
+          <tr><td><span class="pill pill-black">GND</span></td><td>Right blue rail (first hole)</td><td>Zone B–D LED ground</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div style="margin-top:20px;">
+    <div class="table-section-label">DIGITAL OUT — LED Control (PWM brightness)</div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>LED / Zone</th><th>R</th><th>G</th><th>B</th><th>GND</th><th>Brightness</th></tr></thead>
+      <tbody>
+        <tr><td>Zone A · Pavilion KL (D15–D18)</td><td><span class="pill pill-red">Pin 9</span></td><td><span class="pill pill-green">Pin 10</span></td><td><span class="pill pill-blue">Pin 11</span></td><td>Left blue rail</td><td>analogWrite — PWM</td></tr>
+        <tr><td>Zone B · Lot 10/MRT (J22–J25)</td><td><span class="pill pill-red">Pin 3</span></td><td><span class="pill pill-green">Pin 5</span></td><td><span class="pill pill-blue">Pin 6</span></td><td>Right blue rail</td><td>analogWrite — PWM</td></tr>
+        <tr><td>Zone C · Jalan Alor (J32–J35)</td><td><span class="pill pill-red">Pin 2</span></td><td><span class="pill pill-green">Pin 4</span></td><td><span class="pill pill-blue">Pin 7</span></td><td>Right blue rail</td><td>digitalWrite</td></tr>
+        <tr><td>Zone D · Fahrenheit88 (J42–J45)</td><td><span class="pill pill-red">Pin 8</span></td><td><span class="pill pill-green">Pin 12</span></td><td><span class="pill pill-blue">Pin 13</span></td><td>Right blue rail</td><td>digitalWrite</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SIGNAL FLOW ═══════════════════ -->
+<section id="flow">
+  <div class="sec-head">
+    <span class="sec-num">09</span>
+    <div><h2 class="sec-title">Enhanced Signal Flow</h2></div>
+  </div>
+  <div style="margin-bottom:16px;">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:10px;">ENERGY PATH · Bukit Bintang Zones A–D</div>
+    <div class="flow-chain">
+      <div class="flow-node" style="border-color:var(--blue)">
+        <div class="fn-label">Footstep</div>
+        <div class="fn-val" style="color:var(--blue)">Pedestrian</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <div class="fn-label">Piezo Effect</div>
+        <div class="fn-val">AC ~0.1–2V</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:var(--orange)">
+        <div class="fn-label">D1–D4 Rectify</div>
+        <div class="fn-val" style="color:var(--orange)">1N4148</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:var(--blue)">
+        <div class="fn-label">C1+C2 Filter</div>
+        <div class="fn-val" style="color:var(--blue)">100μF + 0.1μF</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:var(--yellow)">
+        <div class="fn-label">MT3608 Boost</div>
+        <div class="fn-val" style="color:var(--yellow)">→ 5V DC</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node highlight">
+        <div class="fn-label">Arduino UNO</div>
+        <div class="fn-val" style="color:var(--accent)">analogRead(A0–A3)</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:var(--accent)">
+        <div class="fn-label">PWM Out</div>
+        <div class="fn-val" style="color:var(--accent)">RGB LED ON</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border-color:var(--yellow)">
+        <div class="fn-label">Street Light</div>
+        <div class="fn-val" style="color:var(--yellow)">Zones A–D Lit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ NOTES ═══════════════════ -->
+<section id="notes">
+  <div class="sec-head">
+    <span class="sec-num">10</span>
+    <div><h2 class="sec-title">Notes & Design Rationale</h2></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+    <div class="note"><span class="note-icon">📍</span><span><strong>Zone A · Pavilion KL Crossing</strong> — highest footfall during shopping hours. Piezo tiles generate peak voltage during peak retail hours (10am–10pm).</span></div>
+    <div class="note"><span class="note-icon">🚇</span><span><strong>Zone B · Lot 10 / MRT Entrance</strong> — consistent pedestrian flow tied to Bukit Bintang MRT station. Morning and evening rush provides high and predictable energy generation.</span></div>
+    <div class="note"><span class="note-icon">🍜</span><span><strong>Zone C · Jalan Alor Entrance</strong> — peak activity from 6pm–midnight during hawker hours. Weather-sensitive: rain reduces footfall significantly.</span></div>
+    <div class="note"><span class="note-icon">🏙️</span><span><strong>Zone D · Fahrenheit88 Walkway</strong> — covered walkway, weather-resilient. Moderate but consistent footfall. Good backup source during rainy conditions.</span></div>
+    <div class="note warn"><span class="note-icon">⚡</span><span><strong>Energy scaling:</strong> Each pedestrian generates ~0.5–1.5V per step. 8 pedestrians on-tile simultaneously can produce up to 11V. The MT3608 boost converter steps this up to stable 5V DC for the Arduino.</span></div>
+    <div class="note warn"><span class="note-icon">🌧️</span><span><strong>Weather mode:</strong> Rain increases reflectivity demand for LED brightness (safety). Sunny day mode dims LEDs by 30% to conserve energy when ambient light is high.</span></div>
+  </div>
+</section>
+
+</div><!-- end .page -->
+
+<script>
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+const ZONES = [
+  { id: 0, code: 'A', name: 'Pavilion KL Crossing',    short: 'Pavilion KL',  maxV: 11.0, voltPerPed: 1.38 },
+  { id: 1, code: 'B', name: 'Lot 10 / MRT Entrance',   short: 'Lot 10/MRT',   maxV: 11.0, voltPerPed: 1.38 },
+  { id: 2, code: 'C', name: 'Jalan Alor Entrance',     short: 'Jalan Alor',   maxV: 11.0, voltPerPed: 1.38 },
+  { id: 3, code: 'D', name: 'Fahrenheit88 Walkway',    short: 'Fahrenheit88', maxV: 11.0, voltPerPed: 1.38 },
+];
+
+const state = {
+  isNight: false,
+  zones: ZONES.map(z => ({
+    pedestrians: 4,
+    weather: 'sunny',
+    voltage: 0,
+    brightness: 0,
+    walkers: [],
+  })),
+};
+
+// ═══════════════════════════════════════════════
+// SIMULATION 1 — drag person onto tile
+// ═══════════════════════════════════════════════
+(function() {
+  const person = document.getElementById('sim1Person');
+  const canvas = document.getElementById('sim1Canvas');
+  if (!person || !canvas) return;
+
+  let dragging = false, startX = 0, startLeft = 0;
+  const TILE_LEFT = 35, TILE_RIGHT = 65; // % of canvas
+
+  function getPersonPct() {
+    return parseFloat(person.style.left) || 10;
+  }
+
+  function checkTile() {
+    const pct = getPersonPct();
+    return pct >= TILE_LEFT && pct <= TILE_RIGHT;
+  }
+
+  function setLamps(on) {
+    const bulbs = [1,2,3,4];
+    bulbs.forEach(i => {
+      const glow = document.getElementById('s1glow'+i);
+      const bulb = document.getElementById('s1bulb'+i);
+      if (glow) glow.style.opacity = on ? '1' : '0';
+      if (bulb) {
+        bulb.setAttribute('fill', on ? '#fef08a' : '#94a3b8');
+        bulb.style.filter = on ? 'drop-shadow(0 0 24px #fde047)' : '';
+      }
+    });
+    const bolts = document.getElementById('s1bolts');
+    if (bolts) bolts.style.opacity = on ? '1' : '0';
+
+    document.getElementById('s1Status').textContent = on ? '● TILE PRESSED' : '● IDLE';
+    document.getElementById('s1Status').style.color = on ? 'var(--accent)' : 'var(--muted)';
+    document.getElementById('s1Voltage').textContent = on ? '5.00 V' : '0.00 V';
+    document.getElementById('s1Lamps').textContent = on ? 'ON' : 'OFF';
+    document.getElementById('s1Lamps').style.color = on ? 'var(--yellow)' : 'var(--muted)';
+
+    const pct = on ? '100%' : '0%';
+    document.getElementById('s1PressureFill').style.width = pct;
+    document.getElementById('s1PressureVal').textContent = pct;
+
+    const tile = document.getElementById('s1Tile');
+    if (tile) tile.style.filter = on ? 'drop-shadow(0 0 8px #10d9a0)' : '';
+
+    // update voltmeter
+    const vm = document.getElementById('svgVoltText');
+    if (vm) vm.textContent = on ? '5.00 V' : '0.00 V';
+  }
+
+  function onMove(clientX) {
+    const rect = canvas.getBoundingClientRect();
+    const pctRaw = ((clientX - rect.left) / rect.width) * 100;
+    const pct = Math.max(3, Math.min(90, pctRaw));
+    person.style.left = pct + '%';
+    setLamps(checkTile());
+  }
+
+  person.addEventListener('mousedown', e => {
+    dragging = true; e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => { if (dragging) onMove(e.clientX); });
+  document.addEventListener('mouseup', () => { dragging = false; });
+
+  person.addEventListener('touchstart', e => { dragging = true; e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchmove', e => {
+    if (dragging && e.touches[0]) onMove(e.touches[0].clientX);
+  }, { passive: false });
+  document.addEventListener('touchend', () => { dragging = false; });
+})();
+
+// ═══════════════════════════════════════════════
+// LIVE SIM — 4 zone cards with auto-walking pedestrians
+// ═══════════════════════════════════════════════
+const WEATHER_ICONS = { sunny: '☀️', rainy: '🌧️', night: '🌙' };
+const WEATHER_MULT = { sunny: 1.0, rainy: 0.7, night: 0.5 };
+const WALKER_EMOJIS = ['🚶', '🚶‍♀️', '🧍', '🚶‍♂️'];
+const NUM_WALKERS = 6; // auto walkers per zone
+
+function calcVoltage(zIdx) {
+  const z = state.zones[zIdx];
+  const onTile = countWalkersOnTile(zIdx);
+  const base = onTile * ZONES[zIdx].voltPerPed * WEATHER_MULT[z.weather];
+  return Math.min(ZONES[zIdx].maxV, base + Math.random() * 0.3);
+}
+
+function calcBrightness(voltage, maxV) {
+  const pct = Math.round((voltage / maxV) * 100);
+  return Math.min(100, pct);
+}
+
+// Tile x range in canvas: 35%–65% of width
+const TILE_X_PCT_START = 0.35;
+const TILE_X_PCT_END   = 0.65;
+
+function countWalkersOnTile(zIdx) {
+  const zs = state.zones[zIdx];
+  return zs.walkers.filter(w => {
+    const pct = w.x / 100;
+    return pct >= TILE_X_PCT_START && pct <= TILE_X_PCT_END;
+  }).length;
+}
+
+// Build zone cards
+function buildZones() {
+  const grid = document.getElementById('zoneGrid');
+  const ctrlGrid = document.getElementById('controlsGrid');
+  grid.innerHTML = '';
+  ctrlGrid.innerHTML = '';
+
+  ZONES.forEach((zone, zi) => {
+    // init walkers
+    state.zones[zi].walkers = Array.from({ length: NUM_WALKERS }, (_, i) => ({
+      id: i,
+      x: 5 + (i / NUM_WALKERS) * 85,
+      speed: 0.3 + Math.random() * 0.5,
+      dir: Math.random() > 0.5 ? 1 : -1,
+      emoji: WALKER_EMOJIS[i % WALKER_EMOJIS.length],
+      dragging: false,
+    }));
+
+    // ZONE CARD
+    const card = document.createElement('div');
+    card.className = 'zone-card';
+    card.id = `zcard${zi}`;
+    card.innerHTML = `
+      <div class="zone-header">
+        <div>
+          <div class="zone-label">Zone ${zone.code}</div>
+          <div class="zone-name">${zone.name}</div>
+        </div>
+        <div class="zone-badges">
+          <span class="badge badge-ped" id="zbPed${zi}">👥 ${state.zones[zi].pedestrians}</span>
+          <span class="badge badge-volt" id="zbVolt${zi}">⚡ 0.0V</span>
+          <span class="badge badge-lux" id="zbLux${zi}">💡 0%</span>
+        </div>
+      </div>
+      <div class="zone-canvas" id="zcanvas${zi}">
+        <div class="zone-weather" id="zweather${zi}">${WEATHER_ICONS[state.zones[zi].weather]}</div>
+        <!-- lamps -->
+        <div class="zone-lamp" style="left:8%">
+          <div class="lamp-head" id="zlamp${zi}_0"></div>
+          <div class="lamp-post"></div>
+        </div>
+        <div class="zone-lamp" style="right:8%">
+          <div class="lamp-head" id="zlamp${zi}_1"></div>
+          <div class="lamp-post"></div>
+        </div>
+        <div class="zone-road"></div>
+        <div class="zone-road-line"></div>
+        <div class="zone-tile" id="ztile${zi}"></div>
+        <div class="zone-tile-label">PIEZO · Zone ${zone.code}</div>
+        <!-- walkers injected by JS -->
+      </div>
+    `;
+    grid.appendChild(card);
+
+    // inject walkers
+    const canvas = card.querySelector(`#zcanvas${zi}`);
+    state.zones[zi].walkers.forEach((w, wi) => {
+      const el = document.createElement('div');
+      el.className = 'zone-walker';
+      el.id = `zwalker${zi}_${wi}`;
+      el.textContent = w.emoji;
+      el.style.left = w.x + '%';
+      canvas.appendChild(el);
+
+      // drag
+      let dg = false;
+      el.addEventListener('mousedown', e => { dg = true; e.preventDefault(); });
+      el.addEventListener('touchstart', e => { dg = true; e.preventDefault(); }, { passive: false });
+      document.addEventListener('mousemove', ev => {
+        if (!dg) return;
+        const r = canvas.getBoundingClientRect();
+        const pct = ((ev.clientX - r.left) / r.width) * 100;
+        w.x = Math.max(2, Math.min(96, pct));
+        el.style.left = w.x + '%';
+      });
+      document.addEventListener('touchmove', ev => {
+        if (!dg || !ev.touches[0]) return;
+        const r = canvas.getBoundingClientRect();
+        const pct = ((ev.touches[0].clientX - r.left) / r.width) * 100;
+        w.x = Math.max(2, Math.min(96, pct));
+        el.style.left = w.x + '%';
+      }, { passive: false });
+      document.addEventListener('mouseup', () => { dg = false; });
+      document.addEventListener('touchend', () => { dg = false; });
+    });
+
+    // CONTROL CARD
+    const ctrl = document.createElement('div');
+    ctrl.className = 'ctrl-zone-card';
+    ctrl.innerHTML = `
+      <div class="ctrl-zone-name">Zone ${zone.code} · ${zone.name}</div>
+      <div class="ctrl-weather-btns">
+        <button class="ctrl-btn active" id="cbtn${zi}sunny" onclick="setWeather(${zi},'sunny')">☀️ Sunny</button>
+        <button class="ctrl-btn" id="cbtn${zi}rainy" onclick="setWeather(${zi},'rainy')">🌧️ Rainy</button>
+        <button class="ctrl-btn" id="cbtn${zi}night" onclick="setWeather(${zi},'night')">🌙 Night</button>
+      </div>
+      <div class="ctrl-slider-row">
+        <span class="ctrl-slider-label">Pedestrians</span>
+        <input type="range" min="0" max="8" value="${state.zones[zi].pedestrians}" class="ctrl-slider"
+          oninput="setPedestrians(${zi}, this.value); document.getElementById('csv${zi}').textContent=this.value">
+        <span class="ctrl-slider-val" id="csv${zi}">${state.zones[zi].pedestrians}</span>
+      </div>
+    `;
+    ctrlGrid.appendChild(ctrl);
+  });
+}
+
+function setWeather(zi, w) {
+  state.zones[zi].weather = w;
+  ['sunny','rainy','night'].forEach(type => {
+    document.getElementById(`cbtn${zi}${type}`)?.classList.toggle('active', type === w);
+  });
+  document.getElementById(`zweather${zi}`).textContent = WEATHER_ICONS[w];
+}
+
+function setPedestrians(zi, val) {
+  state.zones[zi].pedestrians = parseInt(val);
+  document.getElementById(`zbPed${zi}`).textContent = `👥 ${val}`;
+}
+
+function setGlobalMode(mode) {
+  state.isNight = mode === 'night';
+  document.getElementById('globalDay').classList.toggle('active', mode === 'day');
+  document.getElementById('globalNight').classList.toggle('active', mode === 'night');
+  document.getElementById('dayToggle').textContent = mode === 'night' ? '🌙 Night · click to toggle' : '☀️ Day · click to toggle';
+  if (mode === 'night') {
+    ZONES.forEach((_, zi) => setWeather(zi, 'night'));
+  } else {
+    ZONES.forEach((_, zi) => setWeather(zi, 'sunny'));
+  }
+}
+
+// ═══════════════════════════════════════════════
+// AUTO WALK ANIMATION
+// ═══════════════════════════════════════════════
+function autoWalk() {
+  ZONES.forEach((zone, zi) => {
+    const zs = state.zones[zi];
+    const activePeds = Math.min(zs.pedestrians, NUM_WALKERS);
+    zs.walkers.forEach((w, wi) => {
+      const el = document.getElementById(`zwalker${zi}_${wi}`);
+      if (!el) return;
+
+      if (wi >= activePeds) {
+        el.style.display = 'none';
+        return;
+      }
+      el.style.display = 'block';
+
+      w.x += w.speed * w.dir;
+      if (w.x >= 97) { w.dir = -1; el.style.transform = 'translateX(-50%) scaleX(-1)'; }
+      if (w.x <= 2) { w.dir = 1; el.style.transform = 'translateX(-50%) scaleX(1)'; }
+      el.style.left = w.x + '%';
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════
+// UPDATE DISPLAY
+// ═══════════════════════════════════════════════
+function updateDisplay() {
+  let totalV = 0;
+
+  ZONES.forEach((zone, zi) => {
+    const zs = state.zones[zi];
+    const onTile = countWalkersOnTile(zi);
+    const wMult = WEATHER_MULT[zs.weather];
+    // voltage based on pedestrians near/on tile + weather
+    const activeWalkers = Math.min(zs.pedestrians, NUM_WALKERS);
+    const voltBase = onTile * zone.voltPerPed * wMult;
+    const voltWalk = (activeWalkers * 0.3) * wMult; // ambient from walking nearby
+    const voltage = Math.min(zone.maxV, voltBase + voltWalk + (Math.random() * 0.2));
+    zs.voltage = voltage;
+
+    const brightness = calcBrightness(voltage, zone.maxV);
+    zs.brightness = brightness;
+    totalV += voltage;
+
+    // update badge
+    document.getElementById(`zbVolt${zi}`).textContent = `⚡ ${voltage.toFixed(1)}V`;
+    document.getElementById(`zbLux${zi}`).textContent = `💡 ${brightness}%`;
+
+    // update lamps
+    const lampOn = brightness > 10;
+    const lampAlpha = brightness / 100;
+    [0,1].forEach(li => {
+      const lamp = document.getElementById(`zlamp${zi}_${li}`);
+      if (lamp) {
+        lamp.style.background = lampOn ? `rgba(253,224,71,${lampAlpha})` : 'rgba(100,116,139,0.25)';
+        lamp.style.boxShadow = lampOn ? `0 0 ${40*lampAlpha}px ${25*lampAlpha}px rgba(253,224,71,${0.6*lampAlpha})` : 'none';
+      }
+    });
+
+    // update tile glow
+    const tile = document.getElementById(`ztile${zi}`);
+    if (tile) {
+      tile.classList.toggle('active', onTile > 0);
+    }
+
+    // hub region
+    document.getElementById(`hubLux${zi}`).textContent = `💡 ${brightness}%`;
+    document.getElementById(`hubBar${zi}`).style.width = brightness + '%';
+
+    // circuit LEDs
+    const cled = document.getElementById(`cled${zi+1}`);
+    if (cled) {
+      cled.style.fill = lampOn ? `rgba(253,224,71,${0.3+0.7*lampAlpha})` : '#f1f5f9';
+      cled.style.stroke = lampOn ? '#fde047' : '#e2e8f0';
+      cled.style.filter = lampOn ? `drop-shadow(0 0 ${8*lampAlpha}px #fde047)` : '';
+    }
+  });
+
+  // hub totals
+  const hubChargePct = Math.min(100, Math.round((totalV / (ZONES.length * ZONES[0].maxV)) * 100));
+  const totalDemand = state.zones.reduce((s, z) => s + z.brightness, 0);
+
+  document.getElementById('hubTotal').textContent = totalV.toFixed(1) + ' V';
+  document.getElementById('hubCharge').textContent = hubChargePct + '%';
+  document.getElementById('hubChargeFill').style.width = hubChargePct + '%';
+  document.getElementById('hubDemand').textContent = totalDemand + '%';
+  document.getElementById('hubCenterVal').textContent = totalV.toFixed(1) + 'V';
+
+  // overview
+  document.getElementById('ovTotalV').textContent = totalV.toFixed(1) + ' V';
+  document.getElementById('ovHubCharge').textContent = hubChargePct + '%';
+
+  // voltmeter in circuit
+  const vm = document.getElementById('svgVoltText');
+  if (vm) vm.textContent = totalV.toFixed(2) + ' V';
+}
+
+// ═══════════════════════════════════════════════
+// DAY/NIGHT TOGGLE
+// ═══════════════════════════════════════════════
+document.getElementById('dayToggle').addEventListener('click', () => {
+  state.isNight = !state.isNight;
+  setGlobalMode(state.isNight ? 'night' : 'day');
+});
+
+// ═══════════════════════════════════════════════
+// SECTION NAV HIGHLIGHTING
+// ═══════════════════════════════════════════════
+(function() {
+  const links = document.querySelectorAll('.section-nav a');
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+    });
+  }, { passive: true });
+})();
+
+// ═══════════════════════════════════════════════
+// MAIN LOOP
+// ═══════════════════════════════════════════════
+buildZones();
+
+let frameCount = 0;
+function loop() {
+  autoWalk();
+  if (frameCount % 6 === 0) updateDisplay(); // update data every 6 frames (~10fps)
+  frameCount++;
+  requestAnimationFrame(loop);
+}
+loop();
+
+// Initial update
+updateDisplay();
+</script>
+</body>
+</html>
